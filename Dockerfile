@@ -5,7 +5,7 @@
 # SOURCE: https://github.com/puckel/docker-airflow
 
 FROM debian:wheezy
-MAINTAINER Puckel_
+MAINTAINER r-harrison
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -25,6 +25,7 @@ RUN apt-get update -yqq \
     curl \
     python-pip \
     python-dev \
+    libpq-dev \
     libmysqlclient-dev \
     libkrb5-dev \
     libsasl2-dev \
@@ -35,6 +36,11 @@ RUN apt-get update -yqq \
     && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow==${AIRFLOW_VERSION} \
     && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[celery]==${AIRFLOW_VERSION} \
     && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[mysql]==${AIRFLOW_VERSION} \
+    && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[postgres]==${AIRFLOW_VERSION} \
+    && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[samba]==${AIRFLOW_VERSION} \
+    && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[jdbc]==${AIRFLOW_VERSION} \
+    && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[crypto]==${AIRFLOW_VERSION} \
+    && pip install --install-option="--install-purelib=$PYTHONLIBPATH" airflow[slack]==${AIRFLOW_VERSION} \
     && apt-get clean \
     && rm -rf \
     /var/lib/apt/lists/* \
